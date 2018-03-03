@@ -1,4 +1,4 @@
-# MMM-Roomba980
+# MMM-Xiaomi-Vacuum
 
 This is a module for the [MagicMirror²](https://github.com/MichMich/MagicMirror/). It pulls data (name + job, bin and battery status) from a Roomba running on the local network using [Dorita980](https://github.com/koalazak/dorita980) and displays them on the mirror.
 
