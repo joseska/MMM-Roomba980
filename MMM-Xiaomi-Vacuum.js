@@ -1,17 +1,15 @@
 /* global Module */
 
 /* Magic Mirror
- * Module: MMM-Roomba980
+ * Module: MMM-Xiaomi-Vacuum
  *
- * By Reagan Elm
+ * By Jose M. Luis
  * MIT Licensed.
  */
 
-Module.register('MMM-Roomba980', {
+Module.register('MMM-Xiaomi-Vacuum', {
 	defaults: {
-		username: '',
-		password: '',
-		ipAddress: '',
+		vacuumName: '',
 		updateInterval: 60 * 1000, // 1 miniute
 		animationSpeed: 2 * 1000, // 2 seconds
 	},
@@ -82,21 +80,28 @@ Module.register('MMM-Roomba980', {
 		return `<td class="name">${this.stats.name}</td>`;
 	},
 
-	renderPhase() {
+	renderName() {
+		return `<td class="name">${this.stats.phase}</td>`;
+	},
+
+	renderPhase2() {
 		const self = this;
 
 		let phaseText;
 		switch (self.stats.phase) {
-			case 'charge':
+			case 'Charging':
 				phaseText = self.translate('CHARGING');
 				break;
-			case 'hmUsrDock':
+			case 'Returning home':
 				phaseText = self.translate('RETURNING_HOME');
 				break;
-			case 'run':
+			case 'Cleaning':
 				phaseText = self.translate('CLEANING');
 				break;
 			case 'stop':
+				phaseText = self.translate('PAUSED');
+				break;
+			case 'Charger disconnected':
 				phaseText = self.translate('PAUSED');
 				break;
 			default:
@@ -106,7 +111,7 @@ Module.register('MMM-Roomba980', {
 		return `<td class="phase title bright">${phaseText}</td>`;
 	},
 
-	renderBinStatus() {
+	renderBinStatus2() {
 		const self = this;
 
 		let statusHtml = '';
@@ -119,6 +124,13 @@ Module.register('MMM-Roomba980', {
 		}
 
 		return statusHtml;
+	},
+
+	renderBinStatus() {
+		return `
+			<td class="battery">
+				<i class="fa fa-bolt"></i> ${this.stats.binFull}
+			</td>`;
 	},
 
 	renderBatteryStatus() {
@@ -150,7 +162,7 @@ Module.register('MMM-Roomba980', {
 
 	getStyles() {
 		return [
-			'MMM-Roomba980.css',
+			'MMM-Xiaomi-Vacuum.css',
 			'font-awesome.css',
 		];
 	},
