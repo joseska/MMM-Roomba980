@@ -1,15 +1,16 @@
 /* Magic Mirror
- * Node Helper: MMM-Roomba980
+ * Node Helper: MMM-Xiaomi-Vacuum
  *
- * By Reagan Elm
+ * By Jose M. Luis
  * MIT Licensed.
  */
 
 const NodeHelper = require('node_helper');
-const Dorita980  = require('dorita980');
+const request = require('request');
+const miio = require('miio');
 
-const REQUIRED_FIELDS = ['username', 'password', 'ipAddress'];
-const ROOMBA_STATS = ['bin', 'name', 'batPct', 'cleanMissionStatus'];
+const REQUIRED_FIELDS = ['vacuumName'];
+// const ROOMBA_STATS = ['bin', 'name', 'batPct', 'cleanMissionStatus'];
 
 module.exports = NodeHelper.create({
 	start: function() {
@@ -26,6 +27,7 @@ module.exports = NodeHelper.create({
 		switch (notification) {
 			case 'START':
 				self.handleStartNotification(payload);
+
 		}
 	},
 
@@ -47,30 +49,41 @@ module.exports = NodeHelper.create({
 		self.started = true;
 	},
 
-	updateStats: function() {
+	updateStats: function () {
 		const self = this;
 
-		let roomba = new Dorita980.Local(
-			self.config.username,
-			self.config.password,
-			self.config.ipAddress
-		);
+		var url11 = 'http://192.168.1.99:1880/rumbita';
 
-		roomba.getRobotState(ROOMBA_STATS).then((state) => {
-			Object.assign(self.stats, {
-				name: state.name,
-				binFull: state.bin.full,
-				batteryPercent: state.batPct,
-				phase: state.cleanMissionStatus.phase,
-			});
+		request.get({
+			url: url11,
+			json: true,
+			headers: { 'User-Agent': 'request' }
+		}, (err, res, data) => {
+			if (err) {
+				console.log('Error:', err);
+			} else if (res.statusCode !== 200) {
+				console.log('Status:', res.statusCode);
+			} else {
+				// data is already parsed as JSON:
 
-			roomba.end();
-			self.sendSocketNotification('STATS', self.stats);
-		}).catch((err) => {
-			console.error('Error occurred while fetching stats', err);
-			roomba.end();
+
+				Object.assign(self.stats, {
+					name: self.config.vacuumName,
+					binFull: data.FanSpeed,
+					batteryPercent: data.Battery,
+					phase: data.State
+				});
+
+				self.sendSocketNotification('STATS', self.stats);
+
+
+			}
+
 		});
+
+
 	},
+
 
 	isInvalidConfig: function() {
 		const self = this;
