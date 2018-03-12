@@ -10,8 +10,13 @@
 Module.register('MMM-Xiaomi-Vacuum', {
 	defaults: {
 		vacuumName: '',
+<<<<<<< HEAD:MMM-Xiaomi-Vacuum.js
 		updateInterval: 60 * 1000, // 1 minutos
 		animationSpeed: 2 * 1000, // 2 segundos
+=======
+		updateInterval: 60 * 1000, // 1 miniute
+		animationSpeed: 2 * 1000, // 2 seconds
+>>>>>>> 03ef7450cc8429697ef4039ba97c4894c634027e:MMM-Xiaomi-Vacuum.js
 	},
 
 	requiresVersion: '2.1.0',
@@ -93,7 +98,19 @@ Module.register('MMM-Xiaomi-Vacuum', {
 		return wrapper;
 	},
 
+<<<<<<< HEAD:MMM-Xiaomi-Vacuum.js
 	renderPhase() {
+=======
+	renderName() {
+		return `<td class="name">${this.stats.name}</td>`;
+	},
+
+	renderName() {
+		return `<td class="name">${this.stats.phase}</td>`;
+	},
+
+	renderPhase2() {
+>>>>>>> 03ef7450cc8429697ef4039ba97c4894c634027e:MMM-Xiaomi-Vacuum.js
 		const self = this;
 
 		let phaseText;
@@ -114,7 +131,11 @@ Module.register('MMM-Xiaomi-Vacuum', {
 				phaseText = self.translate('PAUSED');
 				break;
 			case 'Charger disconnected':
+<<<<<<< HEAD:MMM-Xiaomi-Vacuum.js
 				phaseText = self.translate('CHARGER DISCONNECTED');
+=======
+				phaseText = self.translate('PAUSED');
+>>>>>>> 03ef7450cc8429697ef4039ba97c4894c634027e:MMM-Xiaomi-Vacuum.js
 				break;
 			default:
 				phaseText = `${self.translate('UNKNOWN')}: ${self.stats.phase}`;
@@ -123,12 +144,17 @@ Module.register('MMM-Xiaomi-Vacuum', {
 		return `<td class="normal light small">${phaseText}</td>`;
 	},
 
+<<<<<<< HEAD:MMM-Xiaomi-Vacuum.js
 	renderBinStatus() {
 		return `
 			<td class="battery">
 				<i class="fa fa-superpowers xm-icon"></i> ${this.stats.binFull}%
 			</td>`;
 	},
+=======
+	renderBinStatus2() {
+		const self = this;
+>>>>>>> 03ef7450cc8429697ef4039ba97c4894c634027e:MMM-Xiaomi-Vacuum.js
 
 	// renderBatteryStatus() {
 	// 	return `
@@ -160,6 +186,17 @@ Module.register('MMM-Xiaomi-Vacuum', {
 			bateria_icono = "fa fa-plug xm-icon";
 		}
 
+<<<<<<< HEAD:MMM-Xiaomi-Vacuum.js
+=======
+	renderBinStatus() {
+		return `
+			<td class="battery">
+				<i class="fa fa-bolt"></i> ${this.stats.binFull}
+			</td>`;
+	},
+
+	renderBatteryStatus() {
+>>>>>>> 03ef7450cc8429697ef4039ba97c4894c634027e:MMM-Xiaomi-Vacuum.js
 		return `
 			<td class="battery">
 				<i class="${bateria_icono}"></i> ${this.stats.batteryPercent}%

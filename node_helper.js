@@ -7,7 +7,10 @@
 
 const NodeHelper = require('node_helper');
 const request = require('request');
+<<<<<<< HEAD
 const miio = require('miio');
+=======
+>>>>>>> 03ef7450cc8429697ef4039ba97c4894c634027e
 
 const REQUIRED_FIELDS = ['vacuumName'];
 // const ROOMBA_STATS = ['bin', 'name', 'batPct', 'cleanMissionStatus'];
@@ -52,10 +55,17 @@ module.exports = NodeHelper.create({
 	updateStats: function () {
 		const self = this;
 
+<<<<<<< HEAD
 		var url11 = 'http://192.168.1.99:1880/rumbita';
 
 		request.get({
 			url: url11,
+=======
+		var url = 'http://192.168.1.99:1880/rumbita';
+
+		request.get({
+			url: url,
+>>>>>>> 03ef7450cc8429697ef4039ba97c4894c634027e
 			json: true,
 			headers: { 'User-Agent': 'request' }
 		}, (err, res, data) => {
@@ -65,12 +75,20 @@ module.exports = NodeHelper.create({
 				console.log('Status:', res.statusCode);
 			} else {
 				// data is already parsed as JSON:
+<<<<<<< HEAD
 
+=======
+				console.log(data.State);
+				console.log(data.Battery);
+				console.log(data.FanSpeed);
+				console.log(self.config.vacuumName);
+>>>>>>> 03ef7450cc8429697ef4039ba97c4894c634027e
 
 				Object.assign(self.stats, {
 					name: self.config.vacuumName,
 					binFull: data.FanSpeed,
 					batteryPercent: data.Battery,
+<<<<<<< HEAD
 					phase: data.State
 				});
 
@@ -82,6 +100,13 @@ module.exports = NodeHelper.create({
 		});
 
 
+=======
+					phase: data.State,
+				});
+			}
+		});
+		
+>>>>>>> 03ef7450cc8429697ef4039ba97c4894c634027e
 	},
 
 

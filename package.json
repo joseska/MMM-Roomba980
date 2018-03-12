@@ -19,7 +19,10 @@
     "Xiaomi Vacuum"
   ],
   "dependencies": {
+<<<<<<< HEAD
     "miio": "^0.14.1",
+=======
+>>>>>>> 03ef7450cc8429697ef4039ba97c4894c634027e
     "request": "2.83.x"
   }
 }
